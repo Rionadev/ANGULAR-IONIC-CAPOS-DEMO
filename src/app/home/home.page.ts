@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { ModalController } from '@ionic/angular';
 import { PostsPage } from 'src/app/pages/author-posts/posts/posts.page';
@@ -28,9 +29,11 @@ export class HomePage  implements OnInit {
 
   constructor(private initAppService: InitializeAppService,
     private sqliteService: SQLiteService,
-    private modalCtrl: ModalController) {
+    private modalCtrl: ModalController,
+    private router: Router) {
       this.isListDisplay = this.initAppService.isAppInit;
   }
+  
   async ngOnInit() {
     if (this.initAppService.platform === 'android') {
       this.isAndroid = true;
@@ -81,5 +84,12 @@ export class HomePage  implements OnInit {
     await modalEncryption.present();
   }
 
+  signIn() {
+    this.router.navigate(['/signin']); // Navigate to the Sign In page
+  }
+
+  signUp() {
+    this.router.navigate(['/signup']); // Navigate to the Sign Up page (if needed)
+  }
 }
 
