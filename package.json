@@ -34,7 +34,7 @@
     "@angular/router": "^16.1.3",
     "@capacitor-community/electron": "^4.1.2",
     "@capacitor-community/sqlite": "^5.0.5-2",
-    "@capacitor/android": "^5.0.5",
+    "@capacitor/android": "5.0.5",
     "@capacitor/app": "5.0.2",
     "@capacitor/core": "^5.0.5",
     "@capacitor/dialog": "^5.0.2",
