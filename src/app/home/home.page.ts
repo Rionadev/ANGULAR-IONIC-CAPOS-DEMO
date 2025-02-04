@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { ModalController } from '@ionic/angular';
 import { PostsPage } from 'src/app/pages/author-posts/posts/posts.page';
@@ -34,6 +35,7 @@ export class HomePage implements OnInit {
     private sqliteService: SQLiteService,
     private modalCtrl: ModalController,
     private http: HttpClient,
+    private router: Router,
   ) {
     this.isListDisplay = this.initAppService.isAppInit;
   }
@@ -41,6 +43,8 @@ export class HomePage implements OnInit {
   // Example method to get data
   async getData(): Promise<any> {
     try {
+      this.isListDisplay = this.initAppService.isAppInit;
+
       const params = new HttpParams().set('private_web_address', 'onestore');
       const response = await this.http.get(`${this.apiUrl}/util/get_all_data`, { params }).toPromise();
       console.log('Data received:', response);
@@ -50,6 +54,7 @@ export class HomePage implements OnInit {
       return null;
     }
   }
+
 
   async ngOnInit() {
     if (this.initAppService.platform === 'android') {
@@ -103,5 +108,12 @@ export class HomePage implements OnInit {
     await modalEncryption.present();
   }
 
+  signIn() {
+    this.router.navigate(['/signin']); // Navigate to the Sign In page
+  }
+
+  signUp() {
+    this.router.navigate(['/signup']); // Navigate to the Sign Up page (if needed)
+  }
 }
 
