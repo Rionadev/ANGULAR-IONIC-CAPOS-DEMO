@@ -12,6 +12,7 @@ import { SQLiteService } from 'src/app/services/sqlite.service';
 import { App } from '@capacitor/app';
 import { ModalPassphrasePage } from 'src/app/pages/modal-passphrase/modal-passphrase.page';
 import { ModalEncryptionPage } from 'src/app/pages/modal-encryption/modal-encryption.page';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -20,20 +21,41 @@ import { ModalEncryptionPage } from 'src/app/pages/modal-encryption/modal-encryp
   imports: [CommonModule, IonicModule, FormsModule],
   standalone: true
 })
-export class HomePage  implements OnInit {
+export class HomePage implements OnInit {
   isListDisplay: boolean = false;
   isAndroid: boolean = false;
   isNative: boolean = false;
   isElectron: boolean = false;
   isEncrypt: boolean = false;
 
-  constructor(private initAppService: InitializeAppService,
+  private apiUrl = 'http://localhost:3000/api'; // Replace with your API URL
+
+  constructor(
+    private initAppService: InitializeAppService,
     private sqliteService: SQLiteService,
     private modalCtrl: ModalController,
-    private router: Router) {
-      this.isListDisplay = this.initAppService.isAppInit;
+    private http: HttpClient,
+    private router: Router,
+  ) {
+    this.isListDisplay = this.initAppService.isAppInit;
   }
-  
+
+  // Example method to get data
+  async getData(): Promise<any> {
+    try {
+      this.isListDisplay = this.initAppService.isAppInit;
+
+      const params = new HttpParams().set('private_web_address', 'onestore');
+      const response = await this.http.get(`${this.apiUrl}/util/get_all_data`, { params }).toPromise();
+      console.log('Data received:', response);
+      return response;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      return null;
+    }
+  }
+
+
   async ngOnInit() {
     if (this.initAppService.platform === 'android') {
       this.isAndroid = true;
@@ -45,6 +67,8 @@ export class HomePage  implements OnInit {
     this.isEncrypt = (this.isNative || this.isElectron) &&
       (await this.sqliteService.isInConfigEncryption()).result
       ? true : false;
+
+    await this.getData();
   }
   async authorpostsClick() {
     const modal = await this.modalCtrl.create({
