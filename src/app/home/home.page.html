@@ -1,9 +1,20 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      SQLite Starter
+      CaPOS Demo
     </ion-title>
     <ion-buttons slot="end">
+      <!-- Sign In Button -->
+      <ion-button (click)="signIn()">
+        <ion-icon slot="start" name="log-in-outline"></ion-icon>
+        Sign In
+      </ion-button>
+      <!-- <ion-icon name="log-out-outline"></ion-icon> -->
+      <!-- Sign Up Button -->
+      <ion-button (click)="signUp()">
+        <ion-icon slot="start" name="person-add-outline" size="small"></ion-icon>
+        Sign Up
+      </ion-button>
       <ion-button *ngIf="isEncrypt" id="popover-encrypt" >
         <ion-icon  slot="icon-only" color="dark" name="ellipsis-vertical"></ion-icon>
       </ion-button>
@@ -27,7 +38,7 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">SQLite Starter</ion-title>
+      <ion-title size="large">CaPOS Demo</ion-title>
       <ion-buttons slot="end">
         <ion-button *ngIf="isAndroid" (click)="exitApp()">
           <ion-icon slot="icon-only" color="danger" name="exit-outline"></ion-icon>
@@ -37,7 +48,7 @@
   </ion-header>
 
   <div id="container">
-    <p align="center"><br><img src="https://avatars3.githubusercontent.com/u/16580653?v=4" width="200" height="200" /></p>
+    <p align="center"><br><img src="/assets/img/logo.png" width="200" height="60" /></p>
     <ion-list *ngIf="isListDisplay" id="home-list">
       <ion-item (click)="authorpostsClick()">
         <ion-label>
