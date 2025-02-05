@@ -4,11 +4,14 @@
 
 export const environment = {
   production: false,
-  databaseNames:[
-    {name:"starter_posts"},
-    {name:"starter_employees"},
-    {name:"users"},
+  databaseNames: [
+    { name: "starter_posts" },
+    { name: "starter_employees" },
+    { name: "users" },
   ],
+  api_url: 'http://admin.caposgt.com:8000/api',
+  local_api_url: 'http://localhost:3000/api',
+
 };
 
 /*

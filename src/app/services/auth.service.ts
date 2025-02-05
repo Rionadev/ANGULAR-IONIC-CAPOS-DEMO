@@ -16,12 +16,12 @@ import { User } from '../models/user';
 export class AuthService {
   public databaseName: string;
   private mDb!: SQLiteDBConnection;
-  private loadToVersion = usersVersionUpgrades[usersVersionUpgrades.length-1].toVersion;
+  private loadToVersion = usersVersionUpgrades[usersVersionUpgrades.length - 1].toVersion;
   private versionUpgrades = usersVersionUpgrades;
   public userList: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
 
-  constructor(  private sqliteService: SQLiteService,
-                private dbVerService: DbnameVersionService,
+  constructor(private sqliteService: SQLiteService,
+    private dbVerService: DbnameVersionService,
   ) {
     this.databaseName = environment.databaseNames.filter(x => x.name.includes('users'))[0].name;
   }
@@ -29,31 +29,33 @@ export class AuthService {
   async initializeDatabase() {
     // create upgrade statements
     await this.sqliteService
-      .addUpgradeStatement({ database: this.databaseName,
-                              upgrade: this.versionUpgrades});
+      .addUpgradeStatement({
+        database: this.databaseName,
+        upgrade: this.versionUpgrades
+      });
     // create and/or open the database
     await this.openDatabase();
-    this.dbVerService.set(this.databaseName,this.loadToVersion);
+    this.dbVerService.set(this.databaseName, this.loadToVersion);
     const isData = await this.mDb.query("select * from sqlite_sequence");
 
-    if( this.sqliteService.platform === 'web') {
+    if (this.sqliteService.platform === 'web') {
       await this.sqliteService.sqliteConnection.saveToStore(this.databaseName);
     }
     await this.getAllUsers();
   }
 
   async openDatabase() {
-    if((this.sqliteService.native || this.sqliteService.platform === "electron")
+    if ((this.sqliteService.native || this.sqliteService.platform === "electron")
       && (await this.sqliteService.isInConfigEncryption()).result
       && (await this.sqliteService.isDatabaseEncrypted(this.databaseName)).result) {
       this.mDb = await this.sqliteService
         .openDatabase(this.databaseName, true, "secret",
-                        this.loadToVersion,false);
+          this.loadToVersion, false);
 
     } else {
       this.mDb = await this.sqliteService
         .openDatabase(this.databaseName, false, "no-encryption",
-                      this.loadToVersion,false);
+          this.loadToVersion, false);
     }
   }
 
@@ -78,10 +80,10 @@ export class AuthService {
     this.userList.next(usersData);
   }
 
-  async deleteUser(id: string): Promise<void>  {
-    let post = await this.sqliteService.findOneBy(this.mDb, "user", {id: id});
-    if( post) {
-      await this.sqliteService.remove(this.mDb, "user", {id: id});;
+  async deleteUser(id: string): Promise<void> {
+    let post = await this.sqliteService.findOneBy(this.mDb, "user", { id: id });
+    if (post) {
+      await this.sqliteService.remove(this.mDb, "user", { id: id });;
     }
   }
 
@@ -89,7 +91,7 @@ export class AuthService {
    * Create Post
    * @returns
    */
-  async createUser(jsonUser:User): Promise<User> {
+  async createUser(jsonUser: User): Promise<User> {
     const user = new User();
     user.id = jsonUser.id;
     user.firstname = jsonUser.firstname;
@@ -99,5 +101,8 @@ export class AuthService {
     user.birthday = jsonUser.birthday;
     await this.sqliteService.save(this.mDb, "user", user);
     return user;
+  }
+  login(password: string) {
+    
   }
 }

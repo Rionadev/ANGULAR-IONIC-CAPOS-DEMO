@@ -15,8 +15,8 @@
         <ion-icon slot="start" name="person-add-outline" size="small"></ion-icon>
         Sign Up
       </ion-button>
-      <ion-button *ngIf="isEncrypt" id="popover-encrypt" >
-        <ion-icon  slot="icon-only" color="dark" name="ellipsis-vertical"></ion-icon>
+      <ion-button *ngIf="isEncrypt" id="popover-encrypt">
+        <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
       </ion-button>
       <ion-popover trigger="popover-encrypt" [dismissOnSelect]="true" side="bottom">
         <ng-template>
@@ -44,12 +44,11 @@
           <ion-icon slot="icon-only" color="danger" name="exit-outline"></ion-icon>
         </ion-button>
       </ion-buttons>
-      </ion-toolbar>
+    </ion-toolbar>
   </ion-header>
 
   <div id="container">
-    <p align="center"><br><img src="/assets/img/logo.png" width="200" height="60" /></p>
-    <ion-list *ngIf="isListDisplay" id="home-list">
+    <!-- <ion-list *ngIf="isListDisplay" id="home-list">
       <ion-item (click)="authorpostsClick()">
         <ion-label>
           Author Posts
@@ -60,6 +59,78 @@
           Employees
         </ion-label>
       </ion-item>
-    </ion-list>
+
+
+    </ion-list> -->
+    <ion-card>
+      <p align="center"><br><img src="/assets/img/logo.png" width="200" height="60" /></p>
+      <ion-card-header>
+        <ion-card-title>Capos</ion-card-title>
+        <ion-card-subtitle>Demo App</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-input [(ngModel)]="str_pass" label="Password" type="password" placeholder="Input password"
+              readonly="true"></ion-input>
+          </ion-item>
+        </ion-list>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="4">
+              <ion-button (click)="typePass('1')">1</ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button (click)="typePass('2')">2</ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button (click)="typePass('3')">3</ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="4">
+              <ion-button (click)="typePass('4')">4</ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button (click)="typePass('5')">5</ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button (click)="typePass('6')">6</ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="4">
+              <ion-button (click)="typePass('7')">7</ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button (click)="typePass('8')">8</ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button (click)="typePass('9')">9</ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="4">
+              <ion-button (click)="erase()">
+                erase
+                <!-- <ion-icon name="arrow-back-outline"></ion-icon> -->
+              </ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button (click)="typePass('0')">0</ion-button>
+            </ion-col>
+            <ion-col size="4">
+              <ion-button (click)="enterPass()">Next</ion-button>
+              <ion-icon name="send-outline"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+
+    </ion-card>
+    <span>
+      {{test_result.error}}
+
+    </span>
   </div>
 </ion-content>
