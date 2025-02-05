@@ -1,0 +1,16 @@
+ion-content::part(background) {
+    background: transparent;
+}
+
+ion-content::part(scroll) {
+color: #fff;
+}
+
+ion-input {
+    margin-top: 20px;
+}
+
+ion-button{
+    margin-top: 20px;
+}
+

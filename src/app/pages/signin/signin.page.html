@@ -13,13 +13,15 @@
 
     <!-- Input Fields -->
     <!-- <ion-label position="floating">Name</ion-label> -->
-    <ion-input label="Outline input" label-placement="floating" [(ngModel)]="newUser.name" type="text" fill="outline" placeholder="Enter firstname"></ion-input>
+    <ion-input label="First Name" label-placement="floating" [(ngModel)]="newUser.name" type="text" fill="outline" placeholder="Enter first name"></ion-input>
   
     <!-- <ion-label position="floating">Email</ion-label> -->
-    <ion-input label="Outline input" label-placement="floating" [(ngModel)]="newUser.email" type="email" fill="outline" placeholder="Enter email"></ion-input>
+    <ion-input label="Last Name" label-placement="floating" [(ngModel)]="newUser.name" type="text" fill="outline" placeholder="Enter last name"></ion-input> 
+
+    <ion-input label="Email" label-placement="floating" [(ngModel)]="newUser.email" type="email" fill="outline" placeholder="Enter email"></ion-input>
     
     <!-- Add User Button -->
-    <ion-button expand="full" color="primary" (click)="addUser()">Add User</ion-button>
+    <ion-button color="primary" (click)="addUser()" style="width: 100%">Add User</ion-button>
 
   
     <!-- User List -->
